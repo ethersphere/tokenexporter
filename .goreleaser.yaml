@@ -1,0 +1,46 @@
+project_name: tokenexporter
+
+builds:
+  - id: linux-amd64
+    main: ./tokenexporter
+    binary: tokenexporter
+    goos:
+      - linux
+    goarch:
+      - amd64
+    flags:
+      - -v
+      - -trimpath
+    ldflags:
+      - -s -w
+
+snapshot:
+  name_template: "{{.Tag}}-snapshot"
+
+archives:
+  - name_template: "{{ tolower .ProjectName }}-{{ tolower .Os }}-{{ tolower .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    format: binary
+
+dockers:
+  -
+    binaries:
+      - tokenexporter
+    builds:
+      - linux-amd64
+    goos: "linux"
+    goarch: "amd64"
+    image_templates:
+      - "ethersphere/tokenexporter:{{ .Major }}"
+      - "ethersphere/tokenexporter:{{ .Major }}.{{ .Minor }}"
+      - "ethersphere/tokenexporter:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "ethersphere/tokenexporter:latest"
+    dockerfile: Dockerfile.goreleaser
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+    extra_files:
+      - data/addresses.txt
+      - data/tokens.json

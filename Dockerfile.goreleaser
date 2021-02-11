@@ -1,0 +1,23 @@
+FROM debian:10.2-slim
+
+ENV PORT 9891
+ENV DATA /app
+
+RUN mkdir -p /app && chown nobody:nogroup /app
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && apt-get install -y \
+        ca-certificates; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/*;
+
+COPY tokenexporter /usr/local/bin/tokenexporter
+COPY ./data/addresses.txt /app/addresses.txt
+COPY ./data/tokens.json /app/tokens.json
+
+USER nobody
+VOLUME /app
+WORKDIR /app
+
+ENTRYPOINT ["tokenexporter"]
