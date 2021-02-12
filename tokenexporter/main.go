@@ -237,7 +237,7 @@ func main() {
 		}
 	}()
 
-	fmt.Printf("ETHexporter has started on port %v using Geth server: %v\n", port, gethUrl)
+	fmt.Printf("TOKENexporter has started on port %v using Geth server: %v\n", port, gethUrl)
 	http.HandleFunc("/metrics", MetricsHttp)
 	panic(http.ListenAndServe("0.0.0.0:"+port, nil))
 }
