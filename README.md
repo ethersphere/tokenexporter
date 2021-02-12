@@ -24,7 +24,7 @@ Clone this repo and then follow the simple steps below!
 You'll need access to an ethereum Geth server to fetch balances. You can use [Infura.io](https://infura.io/setup) or [Slock.it](https://rpc.slock.it/).
 ```
 docker run -d -p 9891:9891 \
- -e GETH="https://rpc.slock.it/goerli" \
+ -e GETH="https://rpc.slock.it/mainnet" \
  ethersphere/tokenexporter:latest
 ```
 
