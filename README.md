@@ -20,7 +20,7 @@ Clone this repo and then follow the simple steps below!
 ### build docker image
 `docker build -t tokenexporter:latest .`
 
-### Run tokenexporter
+### run tokenexporter
 You'll need access to an ethereum Geth server to fetch balances. You can use [Infura.io](https://infura.io/setup) or [Slock.it](https://rpc.slock.it/).
 ```
 docker run -d -p 9891:9891 \
